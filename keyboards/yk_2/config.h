@@ -63,8 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS_RIGHT \
     { C6, B6, B5, B4, D7, D6, C7 }
 
-#define MASTER_RIGHT // for right side test
-
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
