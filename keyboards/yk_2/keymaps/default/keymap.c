@@ -25,3 +25,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
+bool is_keyboard_master(void) {
+    setPinInput(SPLIT_HAND_PIN);
+#if defined(MASTER_RIGHT)
+    return !readPin(SPLIT_HAND_PIN);
+#else
+    return readPin(SPLIT_HAND_PIN);
+#endif
+}
