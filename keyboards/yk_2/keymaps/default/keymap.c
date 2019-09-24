@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_CTRL_NUMPAD] = LAYOUT(
         _______, _______, _______, _______, _______, _______  ,  KC_TAB , KC_PSLS, KC_PAST, KC_BSPC, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______  ,  KC_P7  , KC_P8  , KC_P9  , KC_PMNS, _______, _______, _______,
-        _______, LALT(LSFT(KC_TAB)), LALT(KC_TAB), LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), _______  ,  KC_P4  , KC_P5  , KC_P6  , KC_PPLS, _______, _______, _______,
+        _______, _______, LCTL(KC_W), _______, _______, LCTL(KC_T)  ,  KC_P7  , KC_P8  , KC_P9  , KC_PMNS, _______, _______, _______,
+        KC_LSFT, LCTL(KC_A), LCTL(KC_S), _______, LCTL(KC_TAB), _______  ,  KC_P4  , KC_P5  , KC_P6  , KC_PPLS, _______, _______, _______,
         _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______  ,  KC_P1  , KC_P2  , KC_P3  , KC_PENT, _______, _______, _______,
                                    _______, _______, _______  ,  KC_P0  , _______, KC_PDOT 
         ),
