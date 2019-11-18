@@ -30,10 +30,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT),  KC_RSFT,  KC_RWIN
         ),
     [_RAISE] = LAYOUT(
-        _______,       _______, _______, _______, _______, _______  ,  _______, _______, _______, _______, _______, _______, _______,
-        KC_GRV ,       KC_1   , KC_2   , KC_3   , KC_4   , KC_5     ,  KC_6   ,  KC_7  , KC_8   , KC_9   , KC_0,    KC_PLUS, _______,
-        CTL_T(KC_TILD),KC_UNDS, KC_LBRC, KC_LABK, KC_LPRN, KC_LCBR  ,  KC_RCBR, KC_RPRN, KC_RABK, KC_RBRC, KC_COLN, KC_DQT , _______,
-        SFT_T(KC_DEL), KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC  ,  KC_CIRC, KC_AMPR, KC_ASTR, KC_EQL , KC_QUES, KC_PIPE, _______,
+        _______, _______, _______, _______, _______, _______  ,  _______, _______, _______, _______, _______, _______, _______,
+        KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5     ,  KC_6   ,  KC_7  , KC_8   , KC_9   , KC_0,    KC_PLUS, _______,
+        KC_TILD, KC_UNDS, KC_LBRC, KC_LABK, KC_LPRN, KC_LCBR  ,  KC_RCBR, KC_RPRN, KC_RABK, KC_RBRC, KC_COLN, KC_DQT , _______,
+        KC_DEL , KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC  ,  KC_CIRC, KC_AMPR, KC_ASTR, KC_EQL , KC_QUES, KC_PIPE, _______,
                                          _______, _______, _______  ,  _______, _______, _______
         ),
     [_LOWER] = LAYOUT(
