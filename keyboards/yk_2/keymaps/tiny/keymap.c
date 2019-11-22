@@ -15,6 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+  SFT_IME = SAFE_RANGE,
+};
+
 enum layer_number {
     _BASE = 0,
     _RAISE,
@@ -27,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC        , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T     ,  KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_MINS, XXXXXXX,
         CTL_T(KC_TAB) , KC_A   , KC_S   , KC_D   , KC_F   , KC_G     ,  KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT, XXXXXXX,
         SFT_T(KC_BSPC), KC_Z   , KC_X   , KC_C   , KC_V   , KC_B     ,  KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_BSLS, XXXXXXX,
-                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT),  KC_RSFT,  KC_RWIN
+                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_IME,  KC_RWIN
         ),
     [_RAISE] = LAYOUT(
         _______, _______, _______, _______, _______, _______  ,  _______, _______, _______, _______, _______, _______, _______,
@@ -52,4 +56,31 @@ bool is_keyboard_master(void) {
 #else
     return readPin(SPLIT_HAND_PIN);
 #endif
+}
+
+static bool sft_ime_pressed = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case SFT_IME:
+      if (record->event.pressed) {
+        sft_ime_pressed = true;
+        register_code(KC_LSFT);
+      } else {
+        unregister_code(KC_LSFT);
+        if (sft_ime_pressed) { // (4)
+            register_code(KC_LALT);
+            register_code(KC_GRV);
+            unregister_code(KC_GRV);
+            unregister_code(KC_LALT);
+        }
+        sft_ime_pressed = false;
+      }
+      return false;
+    default:
+      if (record->event.pressed) {
+        sft_ime_pressed = false;
+      }
+  }
+  return true;
 }
