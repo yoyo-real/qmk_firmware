@@ -17,6 +17,10 @@
 
 enum custom_keycodes {
   SFT_IME = SAFE_RANGE,
+  CL_TAB,
+  CL_STAB,
+  AL_TAB,
+  AL_STAB,
 };
 
 enum layer_number {
@@ -42,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_LOWER] = LAYOUT(
         _______, _______, _______, _______, _______, _______  ,  _______, _______, _______, _______,  _______, _______, _______,
-        _______, _______, _______, _______, _______, KC_PGUP  ,  _______, _______, _______, _______,  KC_PSCR, _______, _______,
-        _______, _______, _______, _______, _______, KC_PGDN  ,  KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______, _______,
+        _______, _______, _______, AL_STAB, AL_TAB , KC_PGUP  ,  _______, _______, _______, _______,  KC_PSCR, _______, _______,
+        _______, _______, _______, CL_STAB, CL_TAB , KC_PGDN  ,  KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______, _______,
         KC_F12 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5    ,  KC_F6  , KC_F7  , KC_F8  , KC_F9  ,  KC_F10 , KC_F11 , _______,
                                    _______, _______, _______  ,  _______, _______, _______
         ),
@@ -59,6 +63,8 @@ bool is_keyboard_master(void) {
 }
 
 static bool sft_ime_pressed = false;
+static bool lock_ctrl = false;
+static bool lock_alt = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -77,9 +83,96 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         sft_ime_pressed = false;
       }
       return false;
+    case CL_TAB:
+      if (record->event.pressed) {
+        if (lock_alt) {
+          lock_alt = false;
+            unregister_code(KC_LALT);
+        }
+        if (!lock_ctrl) {
+          lock_ctrl = true;
+          register_code(KC_LCTL);
+        }
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      return false;
+    case CL_STAB:
+      if (record->event.pressed) {
+        if (lock_alt) {
+          lock_alt = false;
+            unregister_code(KC_LALT);
+        }
+        if (!lock_ctrl) {
+          lock_ctrl = true;
+          register_code(KC_LCTL);
+        }
+        register_code(KC_LSFT);
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_TAB);
+      }
+      return false;
+
+      if (record->event.pressed) {
+        sft_ime_pressed = true;
+        register_code(KC_LSFT);
+      } else {
+        unregister_code(KC_LSFT);
+        if (sft_ime_pressed) { // (4)
+            register_code(KC_LALT);
+            register_code(KC_GRV);
+            unregister_code(KC_GRV);
+            unregister_code(KC_LALT);
+        }
+        sft_ime_pressed = false;
+      }
+      return false;
+    case AL_TAB:
+      if (record->event.pressed) {
+        if (lock_ctrl) {
+          lock_ctrl = false;
+          unregister_code(KC_LCTL);
+        }
+        if (!lock_alt) {
+          lock_alt = true;
+            register_code(KC_LALT);
+        }
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      return false;
+    case AL_STAB:
+      if (record->event.pressed) {
+        if (lock_ctrl) {
+          lock_ctrl = false;
+          unregister_code(KC_LCTL);
+        }
+        if (!lock_alt) {
+          lock_alt = true;
+            register_code(KC_LALT);
+        }
+        register_code(KC_LSFT);
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_TAB);
+      }
+      return false;
     default:
       if (record->event.pressed) {
         sft_ime_pressed = false;
+      }
+      if (lock_ctrl) {
+        lock_ctrl = false;
+          unregister_code(KC_LCTL);
+      }
+      if (lock_alt) {
+        lock_alt = false;
+          unregister_code(KC_LALT);
       }
   }
   return true;
