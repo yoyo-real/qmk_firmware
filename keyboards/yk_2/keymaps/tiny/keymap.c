@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+#define CW(kc) LCTL(LWIN(kc))
+
 enum custom_keycodes {
   SFT_IME = SAFE_RANGE,
   CL_TAB,
@@ -26,7 +28,8 @@ enum custom_keycodes {
 enum layer_number {
     _BASE = 0,
     _RAISE,
-    _LOWER
+    _LOWER,
+    _UTIL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -51,6 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F12 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5    ,  KC_F6  , KC_F7  , KC_F8  , KC_F9  ,  KC_F10 , KC_F11 , _______,
                                    _______, _______, _______  ,  _______, _______, _______
         ),
+    [_UTIL] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        LWIN(KC_TAB) , XXXXXXX, XXXXXXX, CW(KC_D), XXXXXXX, XXXXXXX  ,  CW(KC_LEFT), XXXXXXX, XXXXXXX, CW(KC_RIGHT), XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CW(KC_F4), XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                   XXXXXXX, XXXXXXX, XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX
+        ),
 };
 
 bool is_keyboard_master(void) {
@@ -65,6 +75,12 @@ bool is_keyboard_master(void) {
 static bool sft_ime_pressed = false;
 static bool lock_ctrl = false;
 static bool lock_alt = false;
+
+
+uint32_t layer_state_set_user(uint32_t state) {
+  state = update_tri_layer_state(state, _RAISE, _LOWER, _UTIL);
+  return state;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
