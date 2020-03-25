@@ -19,6 +19,15 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
+bool is_keyboard_master(void) {
+    setPinInput(SPLIT_HAND_PIN);
+#if defined(MASTER_RIGHT)
+    return !readPin(SPLIT_HAND_PIN);
+#else
+    return readPin(SPLIT_HAND_PIN);
+#endif
+}
+
 /*
 
 void matrix_init_kb(void) {
