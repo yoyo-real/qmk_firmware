@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION original split keyboard Type 4
 
 /* key matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments
@@ -41,8 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D0, D5 }
-#define MATRIX_COL_PINS { F1, F0, B0 }
+#define MATRIX_ROW_PINS { F0, F7, C7, C6 }
+#define MATRIX_COL_PINS { F6, F4, F1, B2, B6, B3, D3 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
