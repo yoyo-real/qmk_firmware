@@ -67,8 +67,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_SPLIT { 21, 21 }
   #define RGBLIGHT_HUE_STEP 17
   #define RGBLIGHT_SAT_STEP 17
-  #define RGBLIGHT_VAL_STEP 19
-  #define RGBLIGHT_LIMIT_VAL 189 /* The maximum brightness level */
+  #define RGBLIGHT_VAL_STEP 32
+  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
   #define RGBLIGHT_ANIMATIONS
