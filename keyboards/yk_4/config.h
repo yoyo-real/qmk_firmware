@@ -65,10 +65,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 42
   #define RGBLED_SPLIT { 21, 21 }
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 189 /* The maximum brightness level */
+  #define RGBLIGHT_HUE_STEP 17
+  #define RGBLIGHT_SAT_STEP 17
+  #define RGBLIGHT_VAL_STEP 5
+  #define RGBLIGHT_LIMIT_VAL 50 /* The maximum brightness level */
   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
   #define RGBLIGHT_ANIMATIONS
