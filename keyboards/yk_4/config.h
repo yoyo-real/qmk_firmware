@@ -61,7 +61,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN F5
-#define DRIVER_LED_TOTAL 42
+#define RGBLED_NUM 42
+#define RGBLED_SPLIT {21, 21}
+#define DRIVER_LED_TOTAL RGBLED_NUM
 
 // #ifdef RGB_DI_PIN
 //   #define RGBLED_NUM 42
