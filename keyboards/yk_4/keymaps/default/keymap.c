@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_jp.h"
 
 #define CW(kc) LCTL(LWIN(kc))
 
 enum custom_keycodes {
-  SFT_IME = SAFE_RANGE,
-  CL_TAB,
+  CL_TAB = SAFE_RANGE,
   CL_STAB,
   AL_TAB,
   AL_STAB,
@@ -34,15 +34,15 @@ enum layer_number {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT( /* Base */
-        KC_ESC        , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T     ,  KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_MINS,
-        CTL_T(KC_TAB) , KC_A   , KC_S   , KC_D   , KC_F   , KC_G     ,  KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
-        SFT_T(KC_BSPC), KC_Z   , KC_X   , KC_C   , KC_V   , KC_B     ,  KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_BSLS,
-                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_IME, KC_RALT
+        KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS,
+        CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT,
+        SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS,
+                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), JP_ZKHK, KC_RALT
         ),
     [_RAISE] = LAYOUT(
-        KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5     ,  KC_6   ,  KC_7  , KC_8   , KC_9   , KC_0,    KC_PLUS,
-        KC_TILD, KC_UNDS, KC_LABK, KC_LBRC, KC_LPRN, KC_LCBR  ,  KC_RCBR, KC_RPRN, KC_RBRC, KC_RABK, KC_COLN, KC_DQT ,
-        KC_DEL , KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC  ,  KC_CIRC, KC_AMPR, KC_ASTR, KC_EQL , KC_QUES, KC_PIPE,
+        JP_GRV , JP_1   , JP_2   , JP_3   , JP_4   , JP_5     ,  JP_6   ,  JP_7  , JP_8   , JP_9   , JP_0,    JP_PLUS,
+        JP_TILD, JP_UNDS, JP_LABK, JP_LBRC, JP_LPRN, JP_LCBR  ,  JP_RCBR, JP_RPRN, JP_RBRC, JP_RABK, JP_COLN, JP_DQT ,
+        KC_DEL , JP_EXLM, JP_AT  , JP_HASH, JP_DLR , JP_PERC  ,  JP_CIRC, JP_AMPR, JP_ASTR, JP_EQL , JP_QUES, JP_PIPE,
                                    _______, _______, _______  ,  _______, _______, _______
         ),
     [_LOWER] = LAYOUT(
@@ -52,14 +52,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______  ,  _______, _______, _______
         ),
     [_UTIL] = LAYOUT(
-        XXXXXXX, LWIN(KC_1), LWIN(KC_2), LWIN(KC_3), LWIN(KC_4), LWIN(KC_5)  ,  LWIN(KC_6), LWIN(KC_7), LWIN(KC_8), LWIN(KC_9), LWIN(KC_0), XXXXXXX,
-        LWIN(KC_TAB) , XXXXXXX, XXXXXXX, CW(KC_D), XXXXXXX, XXXXXXX  ,  CW(KC_LEFT), XXXXXXX, XXXXXXX, CW(KC_RIGHT), XXXXXXX, XXXXXXX,
-        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, LWIN(KC_V), XXXXXXX  ,  RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
-                                   XXXXXXX, XXXXXXX, _______  ,  _______, XXXXXXX, XXXXXXX
+        XXXXXXX,    LWIN(JP_1), LWIN(JP_2), LWIN(JP_3), LWIN(JP_4), LWIN(JP_5)  ,   LWIN(JP_6),  LWIN(JP_7), LWIN(JP_8),   LWIN(JP_9), LWIN(JP_0), XXXXXXX,
+        LWIN(KC_TAB) , XXXXXXX,    XXXXXXX,   CW(JP_D),    XXXXXXX, XXXXXXX     ,   CW(KC_LEFT),    XXXXXXX,    XXXXXXX, CW(KC_RIGHT),    XXXXXXX, XXXXXXX,
+        KC_LSFT,       XXXXXXX,    XXXXXXX,    XXXXXXX, LWIN(JP_V), XXXXXXX     ,   RGB_TOG,        RGB_MOD,    RGB_HUI,      RGB_SAI,    RGB_VAI, XXXXXXX,
+                                               XXXXXXX,    XXXXXXX, _______     ,   _______,        XXXXXXX,    XXXXXXX
         ),
 };
 
-static bool sft_ime_pressed = false;
 static bool lock_ctrl = false;
 static bool lock_alt = false;
 
@@ -71,21 +70,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case SFT_IME:
-      if (record->event.pressed) {
-        sft_ime_pressed = true;
-        register_code(KC_LSFT);
-      } else {
-        unregister_code(KC_LSFT);
-        if (sft_ime_pressed) { // (4)
-            register_code(KC_LALT);
-            register_code(KC_GRV);
-            unregister_code(KC_GRV);
-            unregister_code(KC_LALT);
-        }
-        sft_ime_pressed = false;
-      }
-      return false;
     case CL_TAB:
       if (record->event.pressed) {
         if (lock_alt) {
@@ -116,21 +100,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(KC_LSFT);
         unregister_code(KC_TAB);
-      }
-      return false;
-
-      if (record->event.pressed) {
-        sft_ime_pressed = true;
-        register_code(KC_LSFT);
-      } else {
-        unregister_code(KC_LSFT);
-        if (sft_ime_pressed) { // (4)
-            register_code(KC_LALT);
-            register_code(KC_GRV);
-            unregister_code(KC_GRV);
-            unregister_code(KC_LALT);
-        }
-        sft_ime_pressed = false;
       }
       return false;
     case AL_TAB:
@@ -166,9 +135,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     default:
-      if (record->event.pressed) {
-        sft_ime_pressed = false;
-      }
       if (lock_ctrl) {
         lock_ctrl = false;
           unregister_code(KC_LCTL);
