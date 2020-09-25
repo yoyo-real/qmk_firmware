@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS,
         CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT,
         SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS,
-                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), JP_ZKHK, KC_RALT
+                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T(JP_ZKHK), KC_RALT
         ),
     [_RAISE] = LAYOUT(
         JP_GRV , JP_1   , JP_2   , JP_3   , JP_4   , JP_5     ,  JP_6   ,  JP_7  , JP_8   , JP_9   , JP_0,    JP_PLUS,
