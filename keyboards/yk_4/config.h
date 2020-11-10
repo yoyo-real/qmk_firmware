@@ -62,9 +62,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN F5
 
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 42
-  #define RGBLED_SPLIT { 21, 21 }
+#define RGBLED_NUM 42
+#define RGBLED_SPLIT { 21, 21 }
+#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_CENTER {112, 36}
+#define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#define SPLIT_TRANSPORT_MIRROR
+
+#ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_HUE_STEP 17
   #define RGBLIGHT_SAT_STEP 17
   #define RGBLIGHT_VAL_STEP 9
