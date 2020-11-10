@@ -51,8 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
-#define USE_I2C
+#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
+// #define USE_I2C
 
 #define SPLIT_HAND_PIN E6
 
@@ -68,12 +68,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_CENTER {112, 36}
 #define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #define SPLIT_TRANSPORT_MIRROR
+#define RGBLIGHT_LIMIT_VAL 76 /* The maximum brightness level */
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
 
+#ifdef RGB_MATRIX_ENABLE
+  #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+
+  #define RGB_MATRIX_KEYPRESSES
+  #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+  #define RGB_MATRIX_HUE_STEP 17 // number of steps to cycle through the hue by
+  #define RGB_MATRIX_SAT_STEP 17 // number of steps to increment the saturation by
+  #define RGB_MATRIX_VAL_STEP 9 // number of steps to increment the brightness by
+#endif
 #ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_HUE_STEP 17
   #define RGBLIGHT_SAT_STEP 17
   #define RGBLIGHT_VAL_STEP 9
-  #define RGBLIGHT_LIMIT_VAL 76 /* The maximum brightness level */
   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
   #define RGBLIGHT_ANIMATIONS
