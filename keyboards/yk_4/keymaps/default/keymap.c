@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_UTIL] = LAYOUT(
         XXXXXXX,    LWIN(JP_1), LWIN(JP_2), LWIN(JP_3), LWIN(JP_4), LWIN(JP_5)  ,   LWIN(JP_6),  LWIN(JP_7), LWIN(JP_8),   LWIN(JP_9), LWIN(JP_0), XXXXXXX,
         LWIN(KC_TAB) , XXXXXXX,    XXXXXXX,   CW(JP_D),    XXXXXXX, XXXXXXX     ,   CW(KC_LEFT),    XXXXXXX,    XXXXXXX, CW(KC_RIGHT),    XXXXXXX, XXXXXXX,
-        KC_LSFT,       XXXXXXX,    XXXXXXX,    XXXXXXX, LWIN(JP_V), XXXXXXX     ,   RGB_TOG,        RGB_MOD,    RGB_HUI,      RGB_SAI,    RGB_VAI, XXXXXXX,
+        KC_LSFT,       XXXXXXX,    XXXXXXX,    XXXXXXX, LWIN(JP_V), XXXXXXX     ,   RGB_TOG,        RGB_MOD,    RGB_HUI,      RGB_SAI,    RGB_VAI, RGB_SPI,
                                                XXXXXXX,    XXXXXXX, _______     ,   _______,        XXXXXXX,    XXXXXXX
         ),
 };
