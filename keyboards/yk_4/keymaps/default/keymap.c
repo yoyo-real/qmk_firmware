@@ -1,4 +1,4 @@
-/* Copyright 2019 yoyo
+/* Copyright 2021 yoyo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,15 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
-#define CW(kc) LCTL(LWIN(kc))
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE,
+    _RAISE,
+    _LOWER,
+    _UTIL
+};
 
+// Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   CL_TAB = SAFE_RANGE,
   CL_STAB,
@@ -25,12 +32,7 @@ enum custom_keycodes {
   AL_STAB,
 };
 
-enum layer_number {
-    _BASE = 0,
-    _RAISE,
-    _LOWER,
-    _UTIL
-};
+#define CW(kc) LCTL(LWIN(kc))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT( /* Base */
@@ -61,7 +63,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool lock_ctrl = false;
 static bool lock_alt = false;
-
 
 uint32_t layer_state_set_user(uint32_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _UTIL);
