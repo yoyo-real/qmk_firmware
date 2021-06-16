@@ -1,5 +1,4 @@
 #include "yk_4.h"
-#include "split_util.h"  // for isLeftHand
 
 /*
 Logical Layout
