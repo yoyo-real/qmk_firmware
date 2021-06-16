@@ -34,5 +34,3 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 SPLIT_KEYBOARD = yes
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
-
-SRC += led_config.c
