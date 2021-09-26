@@ -19,6 +19,7 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
+    _SP,
     _RAISE,
     _LOWER,
     _UTIL
@@ -30,6 +31,8 @@ enum custom_keycodes {
   CL_STAB,
   AL_TAB,
   AL_STAB,
+  SWP_SP,
+  SFT_T_SFTSPC
 };
 
 #define CW(kc) LCTL(LWIN(kc))
@@ -40,6 +43,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT,
         SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS,
                                 KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T(JP_ZKHK), KC_RALT
+        ),
+    [_SP] = LAYOUT( /* Base */
+        KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS,
+        CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT,
+        SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS,
+                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T_SFTSPC, KC_RALT
         ),
     [_RAISE] = LAYOUT(
         JP_GRV , JP_1   , JP_2   , JP_3   , JP_4   , JP_5     ,  JP_6   ,  JP_7  , JP_8   , JP_9   , JP_0,    JP_PLUS,
@@ -57,19 +66,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCA(KC_DEL),LWIN(JP_1), LWIN(JP_2), LWIN(JP_3), LWIN(JP_4), LWIN(JP_5)  ,   LWIN(JP_6),  LWIN(JP_7), LWIN(JP_8),   LWIN(JP_9), LWIN(JP_0), LWIN(JP_L),
         LWIN(KC_TAB) , XXXXXXX,    XXXXXXX,   CW(JP_D),    XXXXXXX, XXXXXXX     ,   CW(KC_LEFT),    XXXXXXX,    XXXXXXX, CW(KC_RIGHT),    XXXXXXX, XXXXXXX,
         KC_LSFT,       XXXXXXX,    XXXXXXX,    XXXXXXX, LWIN(JP_V), XXXXXXX     ,   RGB_TOG,        RGB_MOD,    RGB_HUI,      RGB_SAI,    RGB_VAI, RGB_SPI,
-                                               XXXXXXX,    XXXXXXX, _______     ,   _______,        XXXXXXX,    XXXXXXX
+                                               XXXXXXX,    XXXXXXX, _______     ,   _______,        SWP_SP ,    XXXXXXX
         ),
 };
-
-static bool lock_ctrl = false;
-static bool lock_alt = false;
 
 uint32_t layer_state_set_user(uint32_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _UTIL);
   return state;
 }
 
+void rgb_matrix_indicators_kb(void) {
+    switch (get_highest_layer(default_layer_state)){
+        case _SP:
+            rgb_matrix_set_color(40/* IME切替キー */, 0, 7, 63);
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static bool lock_ctrl = false;
+  static bool lock_alt = false;
+  static bool ready_SFT_T_SFTSPC = false;
+
   switch (keycode) {
     case CL_TAB:
       if (record->event.pressed) {
@@ -135,6 +152,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_TAB);
       }
       return false;
+    case SFT_T_SFTSPC:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        ready_SFT_T_SFTSPC=true;
+      } else {
+        if(ready_SFT_T_SFTSPC){
+          tap_code(KC_SPACE);
+        }
+        unregister_code(KC_RSFT);
+      }
+      return false;
+    case SWP_SP:
+      if (record->event.pressed) {
+        if(get_highest_layer(default_layer_state) == _BASE){
+          default_layer_set(1UL << _SP);
+        }else{
+          default_layer_set(1UL << _BASE);
+        }
+      }
+      return false;
     default:
       if (lock_ctrl) {
         lock_ctrl = false;
@@ -144,6 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         lock_alt = false;
           unregister_code(KC_LALT);
       }
+      ready_SFT_T_SFTSPC=false;
   }
   return true;
 }
