@@ -75,10 +75,13 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 
-void rgb_matrix_indicators_kb(void) {
+void rgb_matrix_indicators_user(void) {
     switch (get_highest_layer(default_layer_state)){
         case _SP:
             rgb_matrix_set_color(40/* IME切替キー */, 0, 7, 63);
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(0/* ESCキー */, 63, 0, 0);
     }
 }
 
