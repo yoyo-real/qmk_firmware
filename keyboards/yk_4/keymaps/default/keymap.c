@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_RAISE] = LAYOUT(
         JP_GRV , JP_1   , JP_2   , JP_3   , JP_4   , JP_5     ,  JP_6   ,  JP_7  , JP_8   , JP_9   , JP_0,    JP_PLUS,
-        JP_TILD, JP_UNDS, JP_LABK, JP_LBRC, JP_LPRN, JP_LCBR  ,  JP_RCBR, JP_RPRN, JP_RBRC, JP_RABK, JP_COLN, JP_DQT ,
+        JP_TILD, JP_UNDS, JP_LABK, JP_LBRC, JP_LPRN, JP_LCBR  ,  JP_RCBR, JP_RPRN, JP_RBRC, JP_RABK, JP_COLN, JP_DQUO,
         KC_DEL , JP_EXLM, JP_AT  , JP_HASH, JP_DLR , JP_PERC  ,  JP_CIRC, JP_AMPR, JP_ASTR, JP_EQL , JP_QUES, JP_PIPE,
                                    _______, _______, _______  ,  _______, _______, _______
         ),
