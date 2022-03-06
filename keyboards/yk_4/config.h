@@ -78,12 +78,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 76
+// #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 #define RGB_MATRIX_HUE_STEP 17 // number of steps to cycle through the hue by
 #define RGB_MATRIX_SAT_STEP 17 // number of steps to increment the saturation by
 #define RGB_MATRIX_VAL_STEP 9 // number of steps to increment the brightness by
+
+// Normal animations
+// #define ENABLE_RGB_MATRIX_ALPHAS_MODS
+// #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN      //上下方向のグラデーション
+// #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT   //左右方向のグラデーション
+// #define ENABLE_RGB_MATRIX_BREATHING             //単色明滅
+// #define ENABLE_RGB_MATRIX_BAND_SAT              //白バックに単色帯が左から右
+// #define ENABLE_RGB_MATRIX_BAND_VAL              //黒バックに単色帯が左から右
+// #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT     //白バックに左右で単色渦巻き
+// #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL     //黒バックに左右で単色渦巻き
+// #define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT       //白バックに中央で単色渦巻き
+// #define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL       //黒バックに中央で単色渦巻き
+#define ENABLE_RGB_MATRIX_CYCLE_ALL             //色変化全キー同時
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT      //色変化左から右
+#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN         //色変化上から下
+#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON//色変化左から右、>型
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN          //色変化左右から中央
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL     //?
+#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL        //色変化左右で渦巻き
+#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL          //色変化中央で渦巻き
+#define ENABLE_RGB_MATRIX_DUAL_BEACON           //色変化互い違いで放射状
+#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+// #define ENABLE_RGB_MATRIX_RAINDROPS
+// #define ENABLE_RGB_MATRIX_JELLYBEA
+// #define ENABLE_RGB_MATRIX_HUE_PENDULUM
+// #define ENABLE_RGB_MATRIX_HUE_WAVE
+// #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+// #define ENABLE_RGB_MATRIX_PIXEL_FLOW
+// #define ENABLE_RGB_MATRIX_PIXEL_RAIN
+// Framebuffer animations
+// #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+// #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// Reactive animations
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE     //背景黒押したキーだけ単色
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE            //背景単色押したキーカラフル
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE       //押したキーの周り単色
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE  //同上重複
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS      //押したキーの十字方向単色
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS //同上重複
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS      //押したキーの十次方向に走る単色
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS //同上重複
+// #define ENABLE_RGB_MATRIX_SPLASH                  //カラフルスプラッシュ
+#define ENABLE_RGB_MATRIX_MULTISPLASH               //同上重複
+// #define ENABLE_RGB_MATRIX_SOLID_SPLASH            //単色スプラッシュ
+// #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH         //同上重複
 
 //#ifdef RGB_DI_PIN
 //#    define RGBLED_NUM 16
