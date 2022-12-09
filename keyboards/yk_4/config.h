@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER yoyo
-#define PRODUCT YK-4
-#define DESCRIPTION original split keyboard Type 4
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 7
@@ -43,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F0, F7, C7, C6 }
 #define MATRIX_COL_PINS { F6, F4, F1, B2, B6, B3, D3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -71,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN F5
 
-#define DRIVER_LED_TOTAL 42
+#define RGB_MATRIX_LED_COUNT 42
 #define RGB_MATRIX_SPLIT { 21, 21 }
 #define RGB_MATRIX_CENTER {112, 36}
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
@@ -209,10 +200,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
