@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS,
         CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT,
         SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS,
-                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T(JP_ZKHK), KC_RALT
+                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), RSFT_T(JP_ZKHK), KC_RALT
         ),
     [_SP] = LAYOUT( /* Base */
         KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         JP_GRV , JP_1   , JP_2   , JP_3   , JP_4   , JP_5     ,  JP_6   ,  JP_7  , JP_8   , JP_9   , JP_0,    JP_PLUS,
         JP_TILD, JP_UNDS, JP_LABK, JP_LBRC, JP_LPRN, JP_LCBR  ,  JP_RCBR, JP_RPRN, JP_RBRC, JP_RABK, JP_COLN, JP_DQUO,
         KC_DEL , JP_EXLM, JP_AT  , JP_HASH, JP_DLR , JP_PERC  ,  JP_CIRC, JP_AMPR, JP_ASTR, JP_EQL , JP_QUES, JP_PIPE,
-                                   _______, _______, _______  ,  _______, _______, _______
+                                   _______, _______, _______  ,  _______, CW_TOGG, _______
         ),
     [_LOWER] = LAYOUT(
         _______, _______, _______, AL_STAB, AL_TAB , KC_PGUP  ,  _______, _______, _______, _______,  KC_PSCR, _______,
@@ -84,7 +84,31 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(0/* ESCキー */, 63, 0, 0);
     }
 
+    if (is_caps_word_on()) {
+        rgb_matrix_set_color(0/* ESCキー */, 0, 32, 3);
+    }
+
     return false;
+}
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case JP_A ... JP_Z:
+        case JP_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case JP_1 ... JP_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case JP_UNDS:
+            return true
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
