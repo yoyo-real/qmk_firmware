@@ -16,21 +16,24 @@
 #include QMK_KEYBOARD_H
 #include "keymap_japanese.h"
 
-#define CW(kc) LCTL(LWIN(kc))
+enum layer_names {
+    _BASE,
+    _SP,
+    _RAISE,
+    _LOWER,
+    _UTIL
+};
 
 enum custom_keycodes {
   CL_TAB = SAFE_RANGE,
   CL_STAB,
   AL_TAB,
   AL_STAB,
+  SWP_SP,
+  SFT_T_SFTSPC
 };
 
-enum layer_number {
-    _BASE = 0,
-    _RAISE,
-    _LOWER,
-    _UTIL
-};
+#define CW(kc) LCTL(LWIN(kc))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT( /* Base */
@@ -38,14 +41,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS, XXXXXXX,
         CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT, XXXXXXX,
         SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS, XXXXXXX,
-                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T(JP_ZKHK), KC_RALT
+                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), RSFT_T(JP_ZKHK), KC_RALT
+        ),
+    [_SP] = LAYOUT( /* Base */
+        XXXXXXX       , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS, XXXXXXX,
+        CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT, XXXXXXX,
+        SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS, XXXXXXX,
+                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T_SFTSPC, KC_RALT
         ),
     [_RAISE] = LAYOUT(
         _______, _______, _______, _______, _______, _______  ,  _______, _______, _______, _______, _______, _______, _______,
         JP_GRV , JP_1   , JP_2   , JP_3   , JP_4   , JP_5     ,  JP_6   ,  JP_7  , JP_8   , JP_9   , JP_0,    JP_PLUS, _______,
         JP_TILD, JP_UNDS, JP_LABK, JP_LBRC, JP_LPRN, JP_LCBR  ,  JP_RCBR, JP_RPRN, JP_RBRC, JP_RABK, JP_COLN, JP_DQUO, _______,
         KC_DEL , JP_EXLM, JP_AT  , JP_HASH, JP_DLR , JP_PERC  ,  JP_CIRC, JP_AMPR, JP_ASTR, JP_EQL , JP_QUES, JP_PIPE, _______,
-                                   _______, _______, _______  ,  _______, _______, _______
+                                   _______, _______, _______  ,  _______, CW_TOGG, _______
         ),
     [_LOWER] = LAYOUT(
         _______, _______, _______, _______, _______, _______  ,  _______, _______, _______, _______,  _______, _______, _______,
@@ -56,32 +66,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_UTIL] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, LWIN(JP_1), LWIN(JP_2), LWIN(JP_3), LWIN(JP_4), LWIN(JP_5)  ,  LWIN(JP_6), LWIN(JP_7), LWIN(JP_8), LWIN(JP_9), LWIN(JP_0), XXXXXXX, XXXXXXX,
+        LCA(KC_DEL), LWIN(JP_1), LWIN(JP_2), LWIN(JP_3), LWIN(JP_4), LWIN(JP_5)  ,  LWIN(JP_6), LWIN(JP_7), LWIN(JP_8), LWIN(JP_9), LWIN(JP_0), LWIN(JP_L), XXXXXXX,
         LWIN(KC_TAB) , XXXXXXX, XXXXXXX, CW(JP_D), XXXXXXX, XXXXXXX  ,  CW(KC_LEFT), XXXXXXX, XXXXXXX, CW(KC_RIGHT), XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LWIN(JP_V), XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                   XXXXXXX, XXXXXXX, XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX
+        KC_LSFT     , LWIN(JP_Z), XXXXXXX, XXXXXXX, LWIN(JP_V), XXXXXXX  ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                   XXXXXXX, XXXXXXX, _______  ,  _______, SWP_SP, XXXXXXX
         ),
 };
-
-bool is_keyboard_master(void) {
-    setPinInput(SPLIT_HAND_PIN);
-#if defined(MASTER_RIGHT)
-    return !readPin(SPLIT_HAND_PIN);
-#else
-    return readPin(SPLIT_HAND_PIN);
-#endif
-}
-
-static bool lock_ctrl = false;
-static bool lock_alt = false;
-
 
 uint32_t layer_state_set_user(uint32_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _UTIL);
   return state;
 }
 
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case JP_A ... JP_Z:
+        case JP_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case JP_1 ... JP_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case JP_UNDS:
+            return true
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static bool lock_ctrl = false;
+  static bool lock_alt = false;
+  static bool ready_SFT_T_SFTSPC = false;
+
   switch (keycode) {
     case CL_TAB:
       if (record->event.pressed) {
@@ -147,6 +168,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_TAB);
       }
       return false;
+    case SFT_T_SFTSPC:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        ready_SFT_T_SFTSPC=true;
+      } else {
+        if(ready_SFT_T_SFTSPC){
+          tap_code(KC_SPACE);
+        }
+        unregister_code(KC_RSFT);
+      }
+      return false;
+    case SWP_SP:
+      if (record->event.pressed) {
+        if(get_highest_layer(default_layer_state) == _BASE){
+          default_layer_set(1UL << _SP);
+        }else{
+          default_layer_set(1UL << _BASE);
+        }
+      }
+      return false;
     default:
       if (lock_ctrl) {
         lock_ctrl = false;
@@ -156,6 +197,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         lock_alt = false;
           unregister_code(KC_LALT);
       }
+      ready_SFT_T_SFTSPC=false;
   }
   return true;
 }
