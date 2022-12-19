@@ -1,0 +1,10 @@
+
+{
+    "keyboard_name": "YK-2",
+    "manufacturer": "yoyo",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4402",
+        "device_version": "0.0.1"
+    }
+}
