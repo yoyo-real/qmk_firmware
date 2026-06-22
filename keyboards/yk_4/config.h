@@ -59,12 +59,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
 
-#define RGB_DI_PIN F5
+#define WS2812_DI_PIN F5
 
 #define RGB_MATRIX_LED_COUNT 42
 #define RGB_MATRIX_SPLIT { 21, 21 }
 #define RGB_MATRIX_CENTER {112, 36}
-#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+#define RGB_MATRIX_SLEEP false // turn off effects when suspended
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 76
 // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
