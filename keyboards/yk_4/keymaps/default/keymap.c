@@ -38,34 +38,34 @@ enum custom_keycodes {
 #define CW(kc) LCTL(LWIN(kc))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT( /* Base */
+    [_BASE] = LAYOUT_default( /* Base */
         KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS,
         CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT,
         SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS,
                                 KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), RSFT_T(JP_ZKHK), KC_RALT
         ),
-    [_SP] = LAYOUT( /* Base */
+    [_SP] = LAYOUT_default( /* Base */
         KC_ESC        , JP_Q   , JP_W   , JP_E   , JP_R   , JP_T     ,  JP_Y   , JP_U   , JP_I   , JP_O   , JP_P   , JP_MINS,
         CTL_T(KC_TAB) , JP_A   , JP_S   , JP_D   , JP_F   , JP_G     ,  JP_H   , JP_J   , JP_K   , JP_L   , JP_SCLN, JP_QUOT,
         SFT_T(KC_BSPC), JP_Z   , JP_X   , JP_C   , JP_V   , JP_B     ,  JP_N   , JP_M   , JP_COMM, JP_DOT , JP_SLSH, JP_BSLS,
-                                KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T_SFTSPC, KC_RALT
+                              KC_LALT, KC_LCTL, LT(_LOWER,KC_SPC)  ,  LT(_RAISE, KC_ENT), SFT_T_SFTSPC, KC_RALT
         ),
-    [_RAISE] = LAYOUT(
+    [_RAISE] = LAYOUT_default(
         JP_GRV , JP_1   , JP_2   , JP_3   , JP_4   , JP_5     ,  JP_6   ,  JP_7  , JP_8   , JP_9   , JP_0,    JP_PLUS,
         JP_TILD, JP_UNDS, JP_LABK, JP_LBRC, JP_LPRN, JP_LCBR  ,  JP_RCBR, JP_RPRN, JP_RBRC, JP_RABK, JP_COLN, JP_DQUO,
         KC_DEL , JP_EXLM, JP_AT  , JP_HASH, JP_DLR , JP_PERC  ,  JP_CIRC, JP_AMPR, JP_ASTR, JP_EQL , JP_QUES, JP_PIPE,
                                    _______, _______, _______  ,  _______, CW_TOGG, _______
         ),
-    [_LOWER] = LAYOUT(
+    [_LOWER] = LAYOUT_default(
         _______, _______, _______, AL_STAB, AL_TAB , KC_PGUP  ,  _______, _______, _______, _______,  KC_PSCR, _______,
         _______, _______, _______, CL_STAB, CL_TAB , KC_PGDN  ,  KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______,
         KC_F12 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5    ,  KC_F6  , KC_F7  , KC_F8  , KC_F9  ,  KC_F10 , KC_F11 ,
                                    _______, _______, _______  ,  _______, _______, _______
         ),
-    [_UTIL] = LAYOUT(
+    [_UTIL] = LAYOUT_default(
         LCA(KC_DEL) , LWIN(JP_1), LWIN(JP_2), LWIN(JP_3), LWIN(JP_4), LWIN(JP_5)  ,   LWIN(JP_6),  LWIN(JP_7), LWIN(JP_8),   LWIN(JP_9), LWIN(JP_0), LWIN(JP_L),
         LWIN(KC_TAB),    XXXXXXX,    XXXXXXX,   CW(JP_D),    XXXXXXX, XXXXXXX     ,   CW(KC_LEFT),    XXXXXXX,    XXXXXXX, CW(KC_RIGHT),    XXXXXXX, XXXXXXX,
-        KC_LSFT     , LWIN(JP_Z),    XXXXXXX,    XXXXXXX, LWIN(JP_V), XXXXXXX     ,   RGB_TOG,        RGB_MOD,    RGB_HUI,      RGB_SAI,    RGB_VAI, RGB_SPI,
+        KC_LSFT     , LWIN(JP_Z),    XXXXXXX,    XXXXXXX, LWIN(JP_V), XXXXXXX     ,   RM_TOGG,        RM_NEXT,    RM_HUEU,      RM_SATU,    RM_VALU, RM_SPDU,
                                                  XXXXXXX,    XXXXXXX, _______     ,   _______,        SWP_SP ,    XXXXXXX
         ),
 };
